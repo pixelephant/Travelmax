@@ -4,7 +4,15 @@
 	<% node.children.each do |node_ch| %>
 		<% unless node_ch.content.blank? %>
 			<strong><%= node_ch.name %>: </strong>
-			<% if is_a_number?(node_ch.content) %>
+			<% v = node_ch.values.first %>
+			<% if node_ch.keys.first == 'count' %>
+				<% node_ch.children.each do |nch| %>
+					<% unless nch.children.text.blank? %>
+						<%= nch.children.text.html_safe unless nch.children.text.blank? %>
+						,
+					<% end %>
+				<% end %>
+			<% elsif is_a_number?(node_ch.content) %>
 				<% begin %>
 					<%= node_ch.name.capitalize.constantize.find(node_ch.content).name %>
 				<% rescue Exception => msg %>
