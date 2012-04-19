@@ -1,0 +1,19 @@
+<h1>Utak listája</h1>
+
+<% @doc.search('//traveloffer').each do |node| %>
+	<% node.children.each do |node_ch| %>
+		<% unless node_ch.content.blank? %>
+			<strong><%= node_ch.name %>: </strong>
+			<% if is_a_number?(node_ch.content) %>
+				<% begin %>
+					<%= node_ch.name.capitalize.constantize.find(node_ch.content).name %>
+				<% rescue Exception => msg %>
+
+				<% end %>
+			<% else %>
+				<%= node_ch.content.html_safe %>
+			<% end %>
+			<br />
+		<% end %>
+	<% end %>
+<% end %>
