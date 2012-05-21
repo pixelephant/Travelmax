@@ -2,6 +2,7 @@ class CreateTravelTimes < ActiveRecord::Migration
   def change
     create_table :travel_times do |t|
     	t.integer :id
+        t.integer :travel_offer_id
     	t.datetime :from_date
     	t.datetime :to_date
     	t.datetime :price_expire

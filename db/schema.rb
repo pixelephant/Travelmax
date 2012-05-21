@@ -11,12 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120418205217) do
+ActiveRecord::Schema.define(:version => 20120521135336) do
 
   create_table "attributes", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "attributes_travel_offers", :force => true do |t|
+    t.integer  "attribute_id"
+    t.integer  "travel_offer_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "boards", :force => true do |t|
@@ -41,7 +48,22 @@ ActiveRecord::Schema.define(:version => 20120418205217) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "cities", :force => true do |t|
+    t.integer  "country_id"
+    t.integer  "region_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "countries", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "descriptions", :force => true do |t|
+    t.string   "name"
     t.text     "description"
     t.integer  "travel_offer_id"
     t.datetime "created_at",      :null => false
@@ -54,6 +76,8 @@ ActiveRecord::Schema.define(:version => 20120418205217) do
     t.integer  "city_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "lat",        :null => false
+    t.string   "long",       :null => false
   end
 
   create_table "destinations_travel_offers", :force => true do |t|
@@ -104,6 +128,29 @@ ActiveRecord::Schema.define(:version => 20120418205217) do
     t.datetime "updated_at",      :null => false
   end
 
+  create_table "inprices_travel_times", :force => true do |t|
+    t.integer  "inprice_id"
+    t.integer  "travel_time_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "optional_fees", :force => true do |t|
+    t.string   "name"
+    t.integer  "travel_time_id"
+    t.integer  "price"
+    t.string   "price_type"
+    t.boolean  "optional"
+    t.boolean  "discount"
+    t.integer  "category_id"
+    t.integer  "age_from"
+    t.integer  "age_to"
+    t.date     "valid_from"
+    t.date     "valid_to"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "outprices", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -117,14 +164,22 @@ ActiveRecord::Schema.define(:version => 20120418205217) do
     t.datetime "updated_at",      :null => false
   end
 
+  create_table "outprices_travel_times", :force => true do |t|
+    t.integer  "outprice_id"
+    t.integer  "travel_time_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "pre_bookings", :force => true do |t|
+    t.integer  "travel_time_id"
     t.datetime "start_date"
     t.datetime "end_date"
     t.string   "type"
     t.integer  "amount"
     t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "program_types", :force => true do |t|
@@ -138,6 +193,13 @@ ActiveRecord::Schema.define(:version => 20120418205217) do
     t.integer  "travel_offer_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+
+  create_table "regions", :force => true do |t|
+    t.integer  "country_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "traffics", :force => true do |t|
@@ -154,6 +216,7 @@ ActiveRecord::Schema.define(:version => 20120418205217) do
     t.integer  "category_standard"
     t.string   "category_aleph"
     t.integer  "board_id"
+    t.integer  "traffic_id"
     t.string   "gallery_url"
     t.text     "gmap"
     t.datetime "created_at",        :null => false
@@ -168,6 +231,7 @@ ActiveRecord::Schema.define(:version => 20120418205217) do
   end
 
   create_table "travel_times", :force => true do |t|
+    t.integer  "travel_offer_id"
     t.datetime "from_date"
     t.datetime "to_date"
     t.datetime "price_expire"

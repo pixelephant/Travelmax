@@ -7,7 +7,7 @@ class IndexController < ApplicationController
   def index
     @to = TravelOffer.all
 
-		@doc = Nokogiri::XML(File.open("public/xml_minta.xml"))
+		doc = Nokogiri::XML(File.open("public/xml_minta.xml"))
 
 
     respond_to do |format|

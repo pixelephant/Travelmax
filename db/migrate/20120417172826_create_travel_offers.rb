@@ -9,6 +9,7 @@ class CreateTravelOffers < ActiveRecord::Migration
     	t.integer :category_standard
     	t.string :category_aleph
     	t.integer :board_id
+        t.integer :traffic_id
     	t.string :gallery_url
     	t.text :gmap
       t.timestamps
